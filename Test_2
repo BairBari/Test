@@ -1,0 +1,118 @@
+1) 1 === '1'
+Выведет false, так как это строгая типизация с тремя '='. 1 это число, а '1' это строка.
+
+2)function floats(string) {
+  var reg = /^[0-9]*[.,]?([0-9]{1,3})/;
+  console.log(reg.exec(string));
+}
+
+3)var urlmatch = /^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/g
+
+^(ищем в начале строки, http[s] либо с "s" либо без неё ? не обязательно ищем совпадение, так как возможны еще www и ftp, {1}Диапазон шаблона тоесть больше одного нельзя,) затем точка, (ищем совпадение по цифрам и символам различным + повторений элементов больше одного раза), точка, (ищем символы в диапазоне от 2 до 3(возможны домены с com и net) + элементы могут повторить более одного раза), \экранирование символа / . все символы кроме перевода каретки, * шаблон может присутствовать ноль раз ? но не обязательно, экранируем \? для возможных парметров . все символы кроме перевода каретки * шаблон может присутствовать ноль раз ? но не обязательно /g флаг для глобального поиска по всему тексту
+
+
+
+Примечание () для разделения на группы
+
+4) переменная text, которая находиться в функции изменится на Сообщение.
+переменная text вне функции является глобальной. Она останется такой же.
+
+5)<a onclick="sendTracker()" href="http://example.com/">промо</a>.
+
+<script>
+  function sendTracker() {
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', 'https://httpbin.org/status/200', false);
+    xhr.send();
+
+    if (xhr.status != 200) {
+  // обработать ошибку
+      alert( 'Ошибка', xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+    }
+  }
+
+</script>
+
+6)getElement('https://groupprice.ru/categories/jenskaya-odejda?referer_from=main_catalog', '#categories_multiple', function(element) {
+  // console.log(element.children.length);
+  // console.log(element);
+  for (j = 0; j < element.children.length; j++) {
+    var item = element.children[j].getElementsByClassName('product-item').length;
+    console.log(j,"блок с товарами");
+
+    for (l = 0; l<item; l++) {
+      var dataId = element.children[j].getElementsByClassName('product-item')
+      var id = dataId[l].getAttribute('data-id');
+      console.log(id)
+    }
+  }
+});
+
+function getElement(url, selector, c) {
+    request(new XMLHttpRequest());
+
+    function request(xhr) {
+        xhr.open('GET', url, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    html = document.createElement('div');
+                    html.innerHTML = xhr.responseText;
+                    c(html.querySelector(selector));
+                }
+                else {
+                  console.log("Нет ответа")
+                }
+            }
+        }
+    }
+}
+
+
+7)
+Примечание: В Браузере firefox нужно скачать расширение для Cors, Access-Control-Allow-Origin *, иначе вы не увидите в браузере ничего, кроме ошибки
+getElement('https://nir-vanna.ru/product/smesitel-bravat-art-f175109c-dlya-rakoviny/', '#tab2', function(element) {
+  // console.log(element);
+  for (j = 0; j < element.children.length; j++) {
+    var item = element.children[j].children;
+    // console.log(item.length);
+    for (l = 0; l< item.length; l++){
+      if(item[l].childNodes.length != 0){
+        itemChil = item[l].children
+        for(c = 0; c<itemChil.length; c++){
+          var col1 = itemChil[c].querySelector(".col-1").children;
+          for(col = 0; col < col1.length; col++ ) {
+            col1[0].remove();
+          }
+          console.log(itemChil[c].querySelector(".col-1").innerText.replace( /\s/g, "")+ '|', itemChil[c].querySelector(".col-2").innerText.replace(/\s/g, ""));
+        }
+      }
+
+
+    }
+
+  }
+});
+
+function getElement(url, selector, c) {
+    request(new XMLHttpRequest());
+
+    function request(xhr) {
+        xhr.open('GET', url, true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    html = document.createElement('div');
+                    html.innerHTML = xhr.responseText;
+                    c(html.querySelector(selector));
+                }
+                else {
+                  console.log("Нет ответа")
+                }
+            }
+        }
+    }
+}
+
